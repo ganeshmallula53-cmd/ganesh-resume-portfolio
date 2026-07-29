@@ -1,0 +1,144 @@
+/* Live animated background */
+body {
+  position: relative;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(242, 103, 58, 0.16), transparent 28%),
+    radial-gradient(circle at 85% 30%, rgba(112, 92, 230, 0.15), transparent 30%),
+    radial-gradient(circle at 50% 90%, rgba(70, 190, 150, 0.12), transparent 30%),
+    var(--bg);
+  background-size: 180% 180%;
+  animation: backgroundFlow 18s ease-in-out infinite alternate;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.42;
+  animation: floatingBlob 14s ease-in-out infinite alternate;
+}
+
+body::before {
+  width: 360px;
+  height: 360px;
+  top: 12%;
+  left: -130px;
+  background: rgba(242, 103, 58, 0.28);
+}
+
+body::after {
+  width: 420px;
+  height: 420px;
+  right: -160px;
+  bottom: 8%;
+  background: rgba(95, 82, 220, 0.24);
+  animation-delay: -5s;
+}
+
+.site-header,
+.section,
+.trusted,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
+.hero,
+.contact-section {
+  position: relative;
+  z-index: 1;
+}
+
+.section,
+.trusted {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(2px);
+}
+
+.contact-section {
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background:
+    linear-gradient(115deg, transparent 25%, rgba(242, 103, 58, 0.4), transparent 45%),
+    linear-gradient(300deg, transparent 35%, rgba(110, 96, 230, 0.34), transparent 60%);
+  background-size: 200% 200%;
+  animation: contactGlow 12s ease-in-out infinite alternate;
+}
+
+.contact-content {
+  position: relative;
+  z-index: 1;
+}
+
+body.dark {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(242, 103, 58, 0.16), transparent 28%),
+    radial-gradient(circle at 85% 30%, rgba(112, 92, 230, 0.2), transparent 30%),
+    radial-gradient(circle at 50% 90%, rgba(50, 170, 140, 0.15), transparent 30%),
+    var(--bg);
+  background-size: 180% 180%;
+}
+
+body.dark .section,
+body.dark .trusted {
+  background: rgba(36, 37, 31, 0.2);
+}
+
+@keyframes backgroundFlow {
+  0% {
+    background-position: 0% 30%;
+  }
+
+  50% {
+    background-position: 100% 70%;
+  }
+
+  100% {
+    background-position: 30% 100%;
+  }
+}
+
+@keyframes floatingBlob {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(90px, -50px, 0) scale(1.18);
+  }
+
+  100% {
+    transform: translate3d(-30px, 70px, 0) scale(0.92);
+  }
+}
+
+@keyframes contactGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  body::before,
+  body::after,
+  .contact-section::before {
+    animation: none;
+  }
+}
